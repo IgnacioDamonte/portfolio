@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Ignacio Damonte — Full Stack Developer Jr. en formación, en transición de turismo y hotelería a IT. Buenos Aires, Argentina.">
+<title>Ignacio Damonte — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper: #FAF6EF;
+  --paper-alt: #F1EAD9;
+  --card: #FFFFFF;
+  --ink: #211C16;
+  --muted: #6B6255;
+  --line: #E3D9C4;
+  --rust: #B5502F;
+  --rust-dark: #93401F;
+  --teal: #2B6E64;
+  --teal-soft: #E3EFEC;
+  --radius: 10px;
+  --font-display: 'Spectral', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+[data-theme="dark"]{
+  --paper: #17140F;
+  --paper-alt: #1E1A14;
+  --card: #221D16;
+  --ink: #F3EDE1;
+  --muted: #A79E8C;
+  --line: #332C22;
+  --teal-soft: #1D2B28;
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font-body);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  transition:background .2s ease, color .2s ease;
+}
+a{color:inherit; text-decoration:none;}
+button{font-family:inherit; cursor:pointer;}
+img{max-width:100%; display:block;}
+.wrap{max-width:1080px; margin:0 auto; padding:0 32px;}
+
+.grain{
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image:radial-gradient(circle at 1px 1px, rgba(107,98,85,.08) 1px, transparent 0);
+  background-size:22px 22px;
+  opacity:.5;
+}
+
+/* ---- header ---- */
+.site-header{
+  position:sticky; top:0; z-index:50;
+  background:var(--paper);
+  background:color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+.header-inner{display:flex; align-items:center; justify-content:space-between; padding:18px 0;}
+.brand{font-family:var(--font-display); font-weight:600; font-size:20px;}
+.brand span{color:var(--rust);}
+
+.main-nav{display:flex; gap:26px;}
+.main-nav a{
+  font-size:13.5px; font-weight:500; color:var(--muted);
+  padding:6px 0; border-bottom:2px solid transparent;
+  transition:color .15s ease, border-color .15s ease;
+}
+.main-nav a:hover{color:var(--ink); border-color:var(--rust);}
+
+.header-actions{display:flex; align-items:center; gap:10px;}
+.theme-toggle{
+  width:36px; height:36px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--ink);
+  display:flex; align-items:center; justify-content:center; font-size:14px;
+  position:relative;
+}
+.theme-icon-dark{display:none;}
+[data-theme="dark"] .theme-icon-light{display:none;}
+[data-theme="dark"] .theme-icon-dark{display:inline;}
+
+.nav-toggle{display:none; background:none; border:none; color:var(--ink); font-size:20px;}
+
+/* ---- buttons ---- */
+.btn-primary{
+  display:inline-block; background:var(--rust); color:#fff;
+  border:none; border-radius:7px; padding:13px 26px;
+  font-size:14px; font-weight:600; transition:background .15s ease;
+}
+.btn-primary:hover{background:var(--rust-dark);}
+.btn-block{width:100%; text-align:center; border:none;}
+
+.btn-outline{
+  background:transparent; border:1px solid var(--line); color:var(--ink);
+  border-radius:7px; padding:12px 24px; font-size:14px; font-weight:500;
+  transition:border-color .15s ease, background .15s ease;
+}
+.btn-outline:hover{border-color:var(--rust); background:var(--card);}
+
+/* ---- hero ---- */
+.hero{padding:76px 0 64px; position:relative; z-index:1;}
+.route-strip{
+  display:flex; align-items:center; gap:10px; margin-bottom:32px;
+  font-family:var(--font-mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--muted);
+}
+.route-dot{width:6px; height:6px; border-radius:50%; background:var(--muted); flex:none;}
+.route-dot-accent{background:var(--rust);}
+.route-track{
+  flex:1; max-width:120px; height:1px;
+  background-image:linear-gradient(to right, var(--line) 50%, transparent 0%);
+  background-size:6px 1px; background-repeat:repeat-x;
+}
+.route-label-accent{color:var(--rust);}
+
+.hero-eyebrow{font-size:13px; color:var(--muted); margin-bottom:14px;}
+.hero h1{
+  font-family:var(--font-display); font-weight:600;
+  font-size:clamp(42px, 6.5vw, 68px); line-height:1.02; letter-spacing:-.01em;
+}
+.hero-role{
+  font-family:var(--font-mono); font-size:14px; color:var(--teal);
+  margin-top:12px; margin-bottom:22px;
+}
+.hero-lead{color:var(--muted); font-size:16px; max-width:56ch; margin-bottom:32px;}
+.hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:28px;}
+.hero-social{display:flex; gap:20px; font-size:13.5px; font-family:var(--font-mono);}
+.hero-social a{border-bottom:1px solid var(--line); padding-bottom:2px;}
+.hero-social a:hover{border-color:var(--rust); color:var(--rust);}
+
+/* ---- sections ---- */
+.section{padding:72px 0; position:relative; z-index:1;}
+.section-alt{background:var(--paper-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+.section-eyebrow{
+  font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--rust); font-weight:600; display:block; margin-bottom:14px;
+}
+.section h2{font-family:var(--font-display); font-size:clamp(28px, 3.5vw, 38px); font-weight:600; margin-bottom:32px;}
+
+/* ---- about ---- */
+.about-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:48px; align-items:start;}
+.about-text p{color:var(--muted); font-size:15.5px; margin-bottom:16px;}
+.about-stats{display:flex; flex-direction:column; gap:14px;}
+.stat-card{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:20px; display:flex; align-items:center; gap:16px;
+}
+.stat-number{
+  font-family:var(--font-display); font-size:34px; font-weight:600; color:var(--rust);
+  flex:none;
+}
+.stat-label{font-size:13px; color:var(--muted); line-height:1.4;}
+
+/* ---- skills ---- */
+.skills-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:28px;}
+.skill-group h3{
+  font-family:var(--font-mono); font-size:11.5px; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--teal); margin-bottom:12px;
+}
+.chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+.chip{
+  font-size:13px; padding:6px 12px; border-radius:999px;
+  background:var(--card); border:1px solid var(--line); color:var(--ink);
+}
+.chip-mono{font-family:var(--font-mono); font-size:11.5px;}
+
+/* ---- tabs / trayectoria ---- */
+.tabs{display:flex; gap:4px; margin-bottom:28px; border-bottom:1px solid var(--line);}
+.tab{
+  background:none; border:none; padding:10px 4px; margin-right:24px;
+  font-size:14px; font-weight:500; color:var(--muted);
+  border-bottom:2px solid transparent; position:relative; top:1px;
+}
+.tab.active{color:var(--rust); border-color:var(--rust);}
+
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.stub{
+  display:grid; grid-template-columns:140px 1fr; gap:20px;
+  padding:18px 0; border-top:1px dashed var(--line);
+  position:relative;
+}
+.stub:first-child{border-top:none;}
+.stub-date{
+  font-family:var(--font-mono); font-size:12px; color:var(--muted); padding-top:2px;
+}
+.stub-body h3{font-family:var(--font-display); font-size:18px; font-weight:600; margin-bottom:4px;}
+.stub-body p{color:var(--muted); font-size:14px;}
+
+/* ---- projects ---- */
+.filter-row{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px;}
+.filter-btn{
+  background:var(--card); border:1px solid var(--line); color:var(--muted);
+  border-radius:999px; padding:8px 16px; font-size:13px; font-weight:500;
+  transition:border-color .15s ease, color .15s ease, background .15s ease;
+}
+.filter-btn:hover{border-color:var(--rust); color:var(--ink);}
+.filter-btn.active{background:var(--rust); border-color:var(--rust); color:#fff;}
+
+.project-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:22px;}
+.project-card{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:24px; display:flex; flex-direction:column; gap:14px;
+  transition:border-color .15s ease, transform .15s ease;
+}
+.project-card:hover{border-color:var(--rust); transform:translateY(-2px);}
+.project-card.is-hidden{display:none;}
+.project-card-head{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+.project-card-head h3{font-family:var(--font-display); font-size:19px; font-weight:600;}
+.project-tag{
+  font-family:var(--font-mono); font-size:10.5px; color:var(--teal);
+  background:var(--teal-soft); padding:3px 9px; border-radius:5px; white-space:nowrap;
+}
+.project-card p{color:var(--muted); font-size:14px; flex:1;}
+.project-link{font-size:13.5px; font-weight:600; color:var(--rust);}
+.project-link:hover{text-decoration:underline;}
+
+.projects-footer{margin-top:36px; color:var(--muted); font-size:14px;}
+.projects-footer a{color:var(--rust); font-weight:600;}
+
+/* ---- contact ---- */
+.contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
+.contact-lead{color:var(--muted); font-size:15px; max-width:44ch; margin-bottom:24px;}
+.contact-links{display:flex; gap:20px; font-family:var(--font-mono); font-size:13.5px;}
+.contact-links a{border-bottom:1px solid var(--line); padding-bottom:2px;}
+.contact-links a:hover{border-color:var(--rust); color:var(--rust);}
+
+.contact-form{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:28px;}
+.field{margin-bottom:18px;}
+.field label{display:block; font-size:12.5px; font-weight:600; color:var(--muted); margin-bottom:7px;}
+.field input, .field textarea{
+  width:100%; background:var(--paper); border:1px solid var(--line); border-radius:7px;
+  padding:11px 13px; font-size:14px; font-family:var(--font-body); color:var(--ink); outline:none;
+}
+.field input:focus, .field textarea:focus{border-color:var(--rust);}
+.field-help{font-size:12px; color:var(--muted); margin-top:10px; text-align:center;}
+
+/* ---- footer ---- */
+.site-footer{border-top:1px solid var(--line); padding:28px 0; position:relative; z-index:1;}
+.footer-inner{display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; font-size:12.5px; color:var(--muted);}
+
+/* ---- responsive ---- */
+@media (max-width:860px){
+  .main-nav{
+    position:fixed; top:64px; left:0; right:0; bottom:0;
+    background:var(--paper); flex-direction:column; padding:20px 32px; gap:0;
+    transform:translateY(-110%); transition:transform .2s ease; z-index:45;
+  }
+  .main-nav.is-open{transform:translateY(0);}
+  .main-nav a{padding:14px 0; border-bottom:1px solid var(--line);}
+  .nav-toggle{display:block;}
+  .about-grid, .contact-grid{grid-template-columns:1fr;}
+}
+
+@media (max-width:560px){
+  .wrap{padding:0 20px;}
+  .stub{grid-template-columns:1fr; gap:4px;}
+}
+
+</style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header" id="top">
+  <div class="wrap header-inner">
+    <a href="#top" class="brand">ID<span>.</span></a>
+
+    <nav class="main-nav" data-nav>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#trayectoria">Trayectoria</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="theme-toggle" data-theme-toggle aria-label="Cambiar tema claro/oscuro" type="button">
+        <span class="theme-icon-light">☀</span>
+        <span class="theme-icon-dark">☾</span>
+      </button>
+      <button class="nav-toggle" data-nav-toggle aria-label="Abrir menú" type="button">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="route-strip" aria-hidden="true">
+        <span class="route-dot"></span>
+        <span class="route-label">Turismo &amp; Hotelería</span>
+        <span class="route-track"></span>
+        <span class="route-label route-label-accent">Desarrollo IT</span>
+        <span class="route-dot route-dot-accent"></span>
+      </div>
+
+      <p class="hero-eyebrow">Ramos Mejía, Buenos Aires — Disponible para roles remotos o híbridos</p>
+      <h1>Ignacio Damonte</h1>
+      <p class="hero-role">Full Stack Developer Jr. en formación</p>
+      <p class="hero-lead">
+        Vengo del mundo del turismo y la hotelería, y hoy construyo software.
+        Ese cambio de rumbo me dejó algo que no se aprende en un curso: manejarme
+        bien bajo presión, resolver problemas de gente real, y no perder la calma
+        cuando algo se rompe a último momento.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#proyectos" class="btn-primary">Ver proyectos</a>
+        <a href="#contacto" class="btn-outline">Contactarme</a>
+      </div>
+
+      <div class="hero-social">
+        <a href="https://github.com/IgnacioDamonte" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://linkedin.com/in/ignacio-damonte-7a2553236" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SOBRE MÍ ===== -->
+  <section class="section" id="sobre-mi">
+    <div class="wrap about-grid">
+      <div class="about-text">
+        <span class="section-eyebrow">01 — Sobre mí</span>
+        <h2>De coordinar viajes a coordinar sistemas</h2>
+        <p>
+          Trabajé varios años en turismo y hotelería — coordinando reservas y operaciones
+          en una agencia de viajes, y gestionando la experiencia de huéspedes en un hotel
+          de alto volumen en Tulum. Ahí aprendí a resolver problemas con poco margen de
+          error y a tratar con personas en situaciones de estrés real, no simulado.
+        </p>
+        <p>
+          Hoy estoy aplicando esa misma cabeza a la programación. Completé la Tecnicatura
+          Superior en Programación en Teclab y los cursos de Full Stack Developer y Python
+          Developer en Coderhouse. Busco mi primer rol formal en IT — como developer, en
+          soporte técnico, o en operaciones con foco en tecnología — y construyo proyectos
+          propios para demostrar que sé hacerlo, no solo que lo estudié.
+        </p>
+      </div>
+
+      <div class="about-stats">
+        <div class="stat-card">
+          <span class="stat-number">3</span>
+          <span class="stat-label">Perfiles objetivo:<br>Full Stack, Soporte, Operaciones</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">4</span>
+          <span class="stat-label">Proyectos propios<br>de punta a punta</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">2</span>
+          <span class="stat-label">Instituciones de formación<br>en programación</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HABILIDADES ===== -->
+  <section class="section section-alt" id="habilidades">
+    <div class="wrap">
+      <span class="section-eyebrow">02 — Habilidades</span>
+      <h2>Con qué trabajo</h2>
+
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>Backend</h3>
+          <div class="chip-row">
+            <span class="chip">Java</span>
+            <span class="chip">Spring Boot</span>
+            <span class="chip">Python</span>
+            <span class="chip">Node.js</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Frontend</h3>
+          <div class="chip-row">
+            <span class="chip">JavaScript</span>
+            <span class="chip">React</span>
+            <span class="chip">HTML</span>
+            <span class="chip">CSS</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Datos</h3>
+          <div class="chip-row">
+            <span class="chip">MongoDB</span>
+            <span class="chip">SQL</span>
+            <span class="chip">H2</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Herramientas</h3>
+          <div class="chip-row">
+            <span class="chip">Git &amp; GitHub</span>
+            <span class="chip">REST APIs</span>
+            <span class="chip">JWT</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Perfil complementario</h3>
+          <div class="chip-row">
+            <span class="chip">Atención al cliente</span>
+            <span class="chip">Gestión de reservas</span>
+            <span class="chip">Trabajo bajo presión</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRAYECTORIA ===== -->
+  <section class="section" id="trayectoria">
+    <div class="wrap">
+      <span class="section-eyebrow">03 — Trayectoria</span>
+      <h2>Formación y experiencia</h2>
+
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab-target="formacion" role="tab" aria-selected="true">Formación</button>
+        <button class="tab" data-tab-target="experiencia" role="tab" aria-selected="false">Experiencia</button>
+      </div>
+
+      <div class="tab-panel active" id="formacion">
+        <div class="stub">
+          <div class="stub-date">2024 — 2026</div>
+          <div class="stub-body">
+            <h3>Tecnicatura Superior en Programación</h3>
+            <p>Teclab</p>
+          </div>
+        </div>
+        <div class="stub">
+          <div class="stub-date">Coderhouse</div>
+          <div class="stub-body">
+            <h3>Full Stack Developer</h3>
+            <p>Java, Spring Boot, JavaScript, React, Node.js, MongoDB</p>
+          </div>
+        </div>
+        <div class="stub">
+          <div class="stub-date">Coderhouse</div>
+          <div class="stub-body">
+            <h3>Python Developer</h3>
+            <p>Fundamentos de Python aplicados a desarrollo backend</p>
+          </div>
+        </div>
+        <div class="stub">
+          <div class="stub-date">Univ. de Morón</div>
+          <div class="stub-body">
+            <h3>Licenciatura en Turismo</h3>
+            <p>Base de la trayectoria previa en turismo y hotelería</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="experiencia">
+        <div class="stub">
+          <div class="stub-date">Hotel Bahía<br>Príncipe Tulum</div>
+          <div class="stub-body">
+            <h3>Guest Service Manager</h3>
+            <p>Gestión de experiencia y atención a huéspedes en operación hotelera de alto volumen.</p>
+          </div>
+        </div>
+        <div class="stub">
+          <div class="stub-date">SPS<br>Expediciones</div>
+          <div class="stub-body">
+            <h3>Operaciones — Agencia de Viajes</h3>
+            <p>Coordinación operativa de servicios turísticos, reservas y administración.</p>
+          </div>
+        </div>
+        <div class="stub">
+          <div class="stub-date">Mercado<br>Libre</div>
+          <div class="stub-body">
+            <h3>Repartidor</h3>
+            <p>Logística de última milla y entrega de pedidos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROYECTOS ===== -->
+  <section class="section section-alt" id="proyectos">
+    <div class="wrap">
+      <span class="section-eyebrow">04 — Proyectos</span>
+      <h2>Lo que construí</h2>
+
+      <div class="filter-row" data-filters>
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="backend">Backend</button>
+        <button class="filter-btn" data-filter="frontend">Frontend</button>
+        <button class="filter-btn" data-filter="fullstack">Full Stack</button>
+      </div>
+
+      <div class="project-grid" data-project-grid>
+
+        <article class="project-card" data-category="backend fullstack">
+          <div class="project-card-head">
+            <h3>AuthKit</h3>
+            <span class="project-tag">Full Stack</span>
+          </div>
+          <p>
+            Sistema de autenticación con tokens, hecho de punta a punta: registro y login con
+            contraseñas hasheadas, access tokens JWT de corta duración, refresh tokens con
+            rotación, y una ruta protegida real. Backend en Express, frontend propio sin
+            frameworks.
+          </p>
+          <div class="chip-row">
+            <span class="chip chip-mono">Node.js</span>
+            <span class="chip chip-mono">Express</span>
+            <span class="chip chip-mono">JWT</span>
+            <span class="chip chip-mono">SQLite</span>
+          </div>
+          <a href="https://github.com/IgnacioDamonte/authkit" target="_blank" rel="noopener" class="project-link">Ver repositorio →</a>
+        </article>
+
+        <article class="project-card" data-category="backend">
+          <div class="project-card-head">
+            <h3>Sistema de Gestión de Biblioteca</h3>
+            <span class="project-tag">Backend</span>
+          </div>
+          <p>
+            API REST completa con frontend para administrar préstamos, socios y catálogo de
+            una biblioteca. Proyecto final de las Prácticas Profesionales de la Tecnicatura
+            en Teclab: modelado de entidades, relaciones JPA, y persistencia con H2.
+          </p>
+          <div class="chip-row">
+            <span class="chip chip-mono">Java</span>
+            <span class="chip chip-mono">Spring Boot</span>
+            <span class="chip chip-mono">H2</span>
+            <span class="chip chip-mono">REST API</span>
+          </div>
+          <a href="https://github.com/IgnacioDamonte/biblioteca-api" target="_blank" rel="noopener" class="project-link">Ver repositorio →</a>
+        </article>
+
+        <article class="project-card" data-category="fullstack backend">
+          <div class="project-card-head">
+            <h3>CompuGaming</h3>
+            <span class="project-tag">Full Stack</span>
+          </div>
+          <p>
+            Catálogo de accesorios gamer con carrito de compras funcional. Un solo motor de
+            vistas de Django resuelve las cuatro categorías de producto según el tipo que
+            viene en la URL, en vez de repetir la misma lógica cuatro veces.
+          </p>
+          <div class="chip-row">
+            <span class="chip chip-mono">Python</span>
+            <span class="chip chip-mono">Django</span>
+            <span class="chip chip-mono">SQLite</span>
+          </div>
+          <a href="https://github.com/IgnacioDamonte/Proyecto-Final-DamonteIgnacio" target="_blank" rel="noopener" class="project-link">Ver repositorio →</a>
+        </article>
+
+        <article class="project-card" data-category="frontend">
+          <div class="project-card-head">
+            <h3>Barsovia</h3>
+            <span class="project-tag">Frontend</span>
+          </div>
+          <p>
+            E-commerce para un bar de hamburguesas y tragos. Catálogo dirigido por datos,
+            carrito con persistencia, y reservas — todo en JavaScript puro, sin frameworks,
+            para reforzar el manejo del DOM y el estado en el cliente.
+          </p>
+          <div class="chip-row">
+            <span class="chip chip-mono">HTML</span>
+            <span class="chip chip-mono">CSS</span>
+            <span class="chip chip-mono">JavaScript</span>
+          </div>
+          <a href="https://github.com/IgnacioDamonte/Barsovia" target="_blank" rel="noopener" class="project-link">Ver repositorio →</a>
+        </article>
+
+      </div>
+
+      <p class="projects-footer">
+        ¿Querés ver más? En mi <a href="https://github.com/IgnacioDamonte" target="_blank" rel="noopener">GitHub</a> subo el resto de mis prácticas y ejercicios.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== CONTACTO ===== -->
+  <section class="section" id="contacto">
+    <div class="wrap contact-grid">
+      <div>
+        <span class="section-eyebrow">05 — Contacto</span>
+        <h2>Hablemos</h2>
+        <p class="contact-lead">
+          Estoy buscando mi primer rol formal en IT — full stack, soporte técnico, u
+          operaciones con foco en tecnología. Si tenés algo que encaje, escribime.
+        </p>
+        <div class="contact-links">
+          <a href="https://github.com/IgnacioDamonte" target="_blank" rel="noopener">GitHub ↗</a>
+          <a href="https://linkedin.com/in/ignacio-damonte-7a2553236" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="field">
+          <label for="cf-name">Nombre</label>
+          <input type="text" id="cf-name" name="name" required>
+        </div>
+        <div class="field">
+          <label for="cf-email">Tu email</label>
+          <input type="email" id="cf-email" name="email" required>
+        </div>
+        <div class="field">
+          <label for="cf-message">Mensaje</label>
+          <textarea id="cf-message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary btn-block">Enviar mensaje</button>
+        <p class="field-help">Se abre tu programa de correo con el mensaje ya redactado.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <span>Ignacio Damonte — Full Stack Developer Jr. en formación</span>
+    <span>© 2026 · Buenos Aires, Argentina</span>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ---- Tema claro/oscuro con persistencia ----
+  const THEME_KEY = 'portfolio-theme';
+  const themeToggle = document.querySelector('[data-theme-toggle]');
+  const root = document.documentElement;
+
+  function applyTheme(theme) {
+    if (theme === 'dark') {
+      root.setAttribute('data-theme', 'dark');
+    } else {
+      root.removeAttribute('data-theme');
+    }
+  }
+
+  const savedTheme = localStorage.getItem(THEME_KEY);
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      const next = isDark ? 'light' : 'dark';
+      applyTheme(next);
+      localStorage.setItem(THEME_KEY, next);
+    });
+  }
+
+  // ---- Menú mobile ----
+  const navToggle = document.querySelector('[data-nav-toggle]');
+  const nav = document.querySelector('[data-nav]');
+  if (navToggle && nav) {
+    navToggle.addEventListener('click', () => nav.classList.toggle('is-open'));
+    nav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => nav.classList.remove('is-open'));
+    });
+  }
+
+  // ---- Tabs de Formación / Experiencia ----
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const targetId = tab.getAttribute('data-tab-target');
+
+      tabs.forEach((t) => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+
+      document.querySelectorAll('.tab-panel').forEach((panel) => {
+        panel.classList.toggle('active', panel.id === targetId);
+      });
+    });
+  });
+
+  // ---- Filtro de proyectos ----
+  const filterButtons = document.querySelectorAll('[data-filters] .filter-btn');
+  const projectCards = document.querySelectorAll('[data-project-grid] .project-card');
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+
+      filterButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      projectCards.forEach((card) => {
+        const categories = card.getAttribute('data-category').split(' ');
+        const matches = filter === 'all' || categories.includes(filter);
+        card.classList.toggle('is-hidden', !matches);
+      });
+    });
+  });
+
+  // ---- Formulario de contacto vía mailto ----
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const name = document.getElementById('cf-name').value.trim();
+      const email = document.getElementById('cf-email').value.trim();
+      const message = document.getElementById('cf-message').value.trim();
+
+      if (!name || !email || !message) return;
+
+      const subject = encodeURIComponent(`Contacto desde el portfolio — ${name}`);
+      const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+      window.location.href = `mailto:nacho.damonte99@gmail.com?subject=${subject}&body=${body}`;
+    });
+  }
+});
+
+</script>
+</body>
+</html>
